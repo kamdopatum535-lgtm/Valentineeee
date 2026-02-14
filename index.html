@@ -2,9 +2,9 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You ❤️</title>
+<title>For Pookie 💛</title>
 
-<!-- Romantic Calligraphy Font -->
+<!-- Calligraphy Font -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 
 <style>
@@ -19,7 +19,7 @@ body {
     overflow: hidden;
 }
 
-/* Top Decorations */
+/* Decorations */
 .corner {
     position: absolute;
     font-size: 45px;
@@ -73,11 +73,12 @@ body {
     border-radius: 15px;
 }
 
-/* Card */
+/* Card (Inside Envelope - RED) */
 .card {
     position: absolute;
     width: 300px;
-    background: white;
+    background: #ff1a1a;
+    color: white;
     padding: 25px;
     border-radius: 20px;
     top: 50%;
@@ -96,12 +97,12 @@ body {
 .message {
     font-family: 'Dancing Script', cursive;
     font-size: 30px;
-    color: #b30000;
+    color: white;
     min-height: 80px;
     line-height: 1.5;
 }
 
-/* Floating Background */
+/* Floating Hearts & Flowers */
 .floating {
     position: absolute;
     font-size: 22px;
@@ -139,7 +140,7 @@ body {
 <script>
 
 let opened = false;
-let text = "Happy Valentine's Day my love ❤️ You are my heart, my happiness, and my forever. I promise to always stand beside you and cherish every moment with you.";
+let text = "Happy Valentine, Pookie 💛 Wishing you all the happiness and success in the world. May you achieve every dream in your life. Always cheering for you!";
 
 function openEnvelope() {
     if (opened) return;
@@ -170,7 +171,6 @@ function typeEffect() {
     typing();
 }
 
-/* Floating Hearts & Flowers */
 function createFloating() {
     let item = document.createElement("div");
     item.className = "floating";
