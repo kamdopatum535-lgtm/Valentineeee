@@ -16,12 +16,34 @@ body {
     background: linear-gradient(135deg, #ff2e63, #ff6b81);
 }
 
-/* Floating Hearts & Flowers Background */
+/* Top Corner Decorations */
+.corner {
+    position: absolute;
+    font-size: 40px;
+    animation: floatCorner 4s ease-in-out infinite alternate;
+}
+
+.top-left {
+    top: 10px;
+    left: 15px;
+}
+
+.top-right {
+    top: 10px;
+    right: 15px;
+}
+
+@keyframes floatCorner {
+    from { transform: translateY(0); }
+    to { transform: translateY(10px); }
+}
+
+/* Floating Background */
 .bg-item {
     position: absolute;
-    font-size: 26px;
+    font-size: 24px;
     animation: floatBg 12s linear infinite;
-    opacity: 0.4;
+    opacity: 0.3;
 }
 
 @keyframes floatBg {
@@ -35,7 +57,7 @@ body {
     cursor: pointer;
 }
 
-/* BIG Red Envelope */
+/* Bigger Red Envelope */
 .envelope {
     width: 320px;
     height: 220px;
@@ -44,10 +66,9 @@ body {
     border-radius: 15px;
     border: 6px solid white;
     box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-    transition: 0.6s;
 }
 
-/* Inside flap - RED */
+/* Inside Red Flap */
 .flap {
     position: absolute;
     width: 100%;
@@ -55,11 +76,11 @@ body {
     background: #ff1a1a;
     clip-path: polygon(0 0, 50% 60%, 100% 0);
     transform-origin: top;
-    transition: 0.6s;
+    transition: 0.8s ease;
     border-radius: 15px;
 }
 
-/* Tap text bigger */
+/* Tap Text */
 .tap {
     color: white;
     font-size: 22px;
@@ -84,7 +105,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-    transition: 0.6s;
+    transition: 0.6s ease;
 }
 
 .card img {
@@ -93,11 +114,12 @@ body {
     margin-bottom: 20px;
 }
 
-/* Bigger message text */
+/* Smooth Bigger Text */
 .message {
     font-size: 20px;
     color: #333;
-    min-height: 60px;
+    min-height: 70px;
+    line-height: 1.6;
 }
 
 .heart {
@@ -114,6 +136,10 @@ body {
 </head>
 
 <body>
+
+<!-- Corner Decorations -->
+<div class="corner top-left">🌸🎈</div>
+<div class="corner top-right">🎈🌹</div>
 
 <div class="container" onclick="openEnvelope()">
     <div class="tap">Tap to Open 💌</div>
@@ -133,7 +159,7 @@ body {
 <script>
 
 let opened = false;
-let text = "Happy Valentine's Day my love ❤️ You are my happiness, my peace, and my forever.";
+let text = "Happy Valentine's Day my love ❤️ You are my heart, my happiness, and my forever. I promise to always stand beside you and cherish every moment with you.";
 
 function openEnvelope() {
     if (opened) return;
@@ -142,13 +168,11 @@ function openEnvelope() {
     document.querySelector(".flap").style.transform = "rotateX(180deg)";
     document.querySelector(".card").style.transform = "translate(-50%, -50%) scale(1)";
 
-    document.getElementById("bgmusic").play();
+    let music = document.getElementById("bgmusic");
+    music.play();
 
-    typeEffect();
-
-    for (let i = 0; i < 25; i++) {
-        createHeart();
-    }
+    // Start text AFTER music starts (small delay)
+    setTimeout(typeEffect, 800);
 }
 
 function typeEffect() {
@@ -159,13 +183,14 @@ function typeEffect() {
         if (i < text.length) {
             element.innerHTML += text.charAt(i);
             i++;
-            setTimeout(typing, 40);
+            setTimeout(typing, 80); // slower & smoother typing
         }
     }
 
     typing();
 }
 
+/* Floating Hearts After Open */
 function createHeart() {
     let heart = document.createElement("div");
     heart.className = "heart";
@@ -175,13 +200,13 @@ function createHeart() {
     heart.style.animationDuration = (3 + Math.random() * 3) + "s";
     document.body.appendChild(heart);
 
-    setTimeout(() => {
-        heart.remove();
-    }, 5000);
+    setTimeout(() => heart.remove(), 5000);
 }
 
-/* Background floating items */
-for (let i = 0; i < 30; i++) {
+setInterval(createHeart, 800);
+
+/* Background Floating Items */
+for (let i = 0; i < 25; i++) {
     let bg = document.createElement("div");
     bg.className = "bg-item";
     bg.innerHTML = Math.random() > 0.5 ? "❤️" : "🌹";
