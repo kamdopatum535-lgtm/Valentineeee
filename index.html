@@ -13,24 +13,20 @@ body {
     align-items: center;
     font-family: 'Segoe UI', sans-serif;
     overflow: hidden;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4);
+    background: linear-gradient(135deg, #ff2e63, #ff6b81);
 }
 
-/* Floating Glow Background */
-body::before {
-    content: "";
+/* Floating Hearts & Flowers Background */
+.bg-item {
     position: absolute;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.3) 10%, transparent 10%);
-    background-size: 60px 60px;
-    animation: moveBg 20s linear infinite;
+    font-size: 26px;
+    animation: floatBg 12s linear infinite;
     opacity: 0.4;
 }
 
-@keyframes moveBg {
-    from { transform: translate(0,0); }
-    to { transform: translate(-200px,-200px); }
+@keyframes floatBg {
+    0% { transform: translateY(100vh); }
+    100% { transform: translateY(-120vh); }
 }
 
 .container {
@@ -39,32 +35,35 @@ body::before {
     cursor: pointer;
 }
 
-/* Envelope */
+/* BIG Red Envelope */
 .envelope {
-    width: 220px;
-    height: 150px;
-    background: #ff4d6d;
+    width: 320px;
+    height: 220px;
+    background: #cc0000;
     position: relative;
-    border-radius: 12px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    border-radius: 15px;
+    border: 6px solid white;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
     transition: 0.6s;
 }
 
+/* Inside flap - RED */
 .flap {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #ff758f;
+    background: #ff1a1a;
     clip-path: polygon(0 0, 50% 60%, 100% 0);
     transform-origin: top;
     transition: 0.6s;
-    border-radius: 12px;
+    border-radius: 15px;
 }
 
+/* Tap text bigger */
 .tap {
     color: white;
-    font-size: 18px;
-    margin-bottom: 15px;
+    font-size: 22px;
+    margin-bottom: 20px;
     animation: pulse 1.5s infinite;
 }
 
@@ -77,42 +76,40 @@ body::before {
 /* Card */
 .card {
     position: absolute;
-    width: 260px;
+    width: 300px;
     background: white;
     border-radius: 20px;
-    padding: 20px;
+    padding: 25px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
     transition: 0.6s;
 }
 
 .card img {
     width: 100%;
     border-radius: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
+/* Bigger message text */
 .message {
-    font-size: 16px;
-    color: #444;
-    min-height: 50px;
+    font-size: 20px;
+    color: #333;
+    min-height: 60px;
 }
 
-/* Floating hearts */
 .heart {
     position: absolute;
-    font-size: 20px;
+    font-size: 22px;
     animation: floatUp 5s linear infinite;
-    opacity: 0.8;
 }
 
 @keyframes floatUp {
     0% { transform: translateY(0); opacity: 1; }
     100% { transform: translateY(-600px); opacity: 0; }
 }
-
 </style>
 </head>
 
@@ -120,6 +117,7 @@ body::before {
 
 <div class="container" onclick="openEnvelope()">
     <div class="tap">Tap to Open 💌</div>
+
     <div class="envelope">
         <div class="flap"></div>
     </div>
@@ -135,7 +133,7 @@ body::before {
 <script>
 
 let opened = false;
-let text = "Happy Valentine's Day my pookie 💛 You are the most beautiful part of my life. I am so lucky to have you.";
+let text = "Happy Valentine's Day my love ❤️ You are my happiness, my peace, and my forever.";
 
 function openEnvelope() {
     if (opened) return;
@@ -148,7 +146,7 @@ function openEnvelope() {
 
     typeEffect();
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 25; i++) {
         createHeart();
     }
 }
@@ -171,16 +169,25 @@ function typeEffect() {
 function createHeart() {
     let heart = document.createElement("div");
     heart.className = "heart";
-    heart.innerHTML = "❤️";
+    heart.innerHTML = Math.random() > 0.5 ? "❤️" : "🌸";
     heart.style.left = Math.random() * window.innerWidth + "px";
     heart.style.top = "100%";
-    heart.style.fontSize = (15 + Math.random() * 20) + "px";
     heart.style.animationDuration = (3 + Math.random() * 3) + "s";
     document.body.appendChild(heart);
 
     setTimeout(() => {
         heart.remove();
     }, 5000);
+}
+
+/* Background floating items */
+for (let i = 0; i < 30; i++) {
+    let bg = document.createElement("div");
+    bg.className = "bg-item";
+    bg.innerHTML = Math.random() > 0.5 ? "❤️" : "🌹";
+    bg.style.left = Math.random() * window.innerWidth + "px";
+    bg.style.animationDuration = (8 + Math.random() * 6) + "s";
+    document.body.appendChild(bg);
 }
 
 </script>
