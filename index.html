@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Happy Valentine 💛</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom right, #ff4e50, #fc913a);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .tap {
+      color: white;
+      font-size: 20px;
+      margin-bottom: 15px;
+      animation: blink 1.2s infinite;
+      z-index: 10;
+      position: relative;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0.5; }
+    }
+
+    .envelope {
+      width: 200px;
+      height: 120px;
+      background: white;
+      position: relative;
+      margin: auto;
+      border-radius: 5px;
+      z-index: 5;
+    }
+
+    .flap {
+      width: 0;
+      height: 0;
+      border-left: 100px solid transparent;
+      border-right: 100px solid transparent;
+      border-bottom: 60px solid #ff4e50;
+      position: absolute;
+      top: -60px;
+      left: 0;
+      transform-origin: bottom;
+      transition: transform 1s ease-in-out;
+      z-index: 6;
+    }
+
+    .card {
+      width: 260px;
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.8s ease;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      z-index: 7;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .message {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      color: pink;
+      animation: floatUp 3s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+      100% { transform: translateY(-500px) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" onclick="openEnvelope()">
+  <div class="tap">Tap to Open 💌</div>
+  <div class="envelope">
+    <div class="flap"></div>
+  </div>
+
+  <div class="card">
+    <img src="herphoto.jpg" alt="Her Photo">
+    <div class="message" id="text"></div>
+  </div>
+</div>
+
+<audio id="bgmusic" src="music.mp3"></audio>
+
+<script>
+let opened = false;
+let text = "Happy Valentine pookie 💛 All great wishes from your friend to achieve all your dreams in your life.";
+
+function openEnvelope() {
+  if (opened) return;
+  opened = true;
+
+  // Open flap
+  document.querySelector(".flap").style.transform = "rotateX(180deg)";
+  document.querySelector(".card").style.transform = "translate(-50%, -50%) scale(1)";
+
+  // Play music
+  document.getElementById("bgmusic").play();
+
+  // Start typing message
+  typeEffect();
+
+  // Start hearts
+  for(let i=0;i<15;i++) {
+    createHeart();
+  }
+}
+
+function typeEffect() {
+  let i = 0;
+  let element = document.getElementById("text");
+
+  function typing() {
+    if (i < text.length) {
+      element.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typing, 40);
+    }
+  }
+  typing();
+}
+
+function createHeart() {
+  let heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.fontSize = (15 + Math.random()*30) + "px";
+  heart.style.animationDuration = (3 + Math.random()*3) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(()=>{ heart.remove(); }, 6000);
+}
+</script>
+
+</body>
+</html>
